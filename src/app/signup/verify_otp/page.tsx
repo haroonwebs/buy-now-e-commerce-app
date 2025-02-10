@@ -1,19 +1,20 @@
 "use client";
-import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 // Define Zod schema for validation
 const otpSchema = z.object({
-  otp: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  otp: z.string().length(6, { message: "OTP must be exactly 6 digits" }),
 });
 
 // Type for form data
 type otpFormType = z.infer<typeof otpSchema>;
 
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,8 +23,30 @@ const Login = () => {
     resolver: zodResolver(otpSchema),
   });
 
-  const onSubmit = (data: otpFormType) => {};
+  const onSubmit = async (data: otpFormType) => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/user/verify_otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
+      const result = await response.json();
+      if (result.success) {
+        toast.success(result.message);
+        router.push("/");
+      } else {
+        toast.error(result.message);
+      }
+
+      console.log("result after verification", result);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
   return (
     <div className="h-screen w-full bg-white flex items-center justify-center">
       <div className="w-1/3 bg-blue-200 rounded-md shadow-xl border-2 border-blue-400 p-6">

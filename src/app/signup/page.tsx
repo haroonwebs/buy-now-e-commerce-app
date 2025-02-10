@@ -7,7 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AiOutlineMail } from "react-icons/ai";
 import { CiLock } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
-
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 // Define Zod Schema for validation
 const signUpSchema = z.object({
   user_name: z
@@ -23,6 +24,7 @@ const signUpSchema = z.object({
 type SignUpFormType = z.infer<typeof signUpSchema>;
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -43,7 +45,12 @@ const SignUp = () => {
       );
 
       const result = await response.json();
-      console.log("Server Response:", result);
+      if (result.success === true) {
+        toast.success("OTP sent to your emaill. Please verify Email !");
+        router.push("/signup/verify_otp");
+      } else {
+        toast.error(result.message);
+      }
     } catch (error: any) {
       console.error("Sign Up Error:", error);
     }
