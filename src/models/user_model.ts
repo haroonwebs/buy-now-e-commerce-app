@@ -1,3 +1,4 @@
+import { boolean } from "joi";
 import {
   Column,
   Entity,
@@ -45,7 +46,16 @@ export class User {
   @Column()
   otp_expiry!: Date;
 
-  @Column()
+  @Column({
+    type: "boolean",
+    default: false,
+  })
+  isVerified!: boolean;
+
+  @Column({
+    type: "boolean",
+    default: false,
+  })
   active!: boolean;
 
   @CreateDateColumn()
