@@ -4,11 +4,14 @@ import companyRoutes from "./routes/companyRoutes/companyRoutes";
 import productRoute from "./routes/productRoutes/productRoute";
 import { config } from "./config/config";
 import userRoutes from "./routes/authRoutes/authRoutes";
+import cors from "cors";
 
 const app = express();
 
 const port = config.port;
 
+// middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

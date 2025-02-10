@@ -37,6 +37,7 @@ const OTP_VERIFY = async (req: Request, res: Response): Promise<any> => {
 
     if (otp_expiryDate < isoCurrentDate) {
       userExist.otp = null as any;
+      userExist.otp_expiry = null as any;
       await userRepo.save(userExist);
       return res.status(409).json({
         success: false,
@@ -47,12 +48,11 @@ const OTP_VERIFY = async (req: Request, res: Response): Promise<any> => {
     userExist.isVerified = true;
     userExist.otp = null as any; // Clear OTP after successful verification
     userExist.active = true;
-
+    userExist.otp_expiry = null as any;
     await userRepo.save(userExist);
-
     return res.status(200).json({
       success: true,
-      message: "Verified Successfully",
+      message: "User Verified Successfully",
       user: userExist,
     });
   } catch (error: any) {
