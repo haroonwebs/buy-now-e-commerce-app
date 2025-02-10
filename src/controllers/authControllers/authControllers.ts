@@ -26,7 +26,6 @@ export const Register_User = async (
 ): Promise<any> => {
   try {
     const { error, value } = Auth_Schema.validate(req.body as authTypes);
-
     if (error) {
       return res.status(400).json({
         success: false,
@@ -78,10 +77,7 @@ export const Register_User = async (
       return res.status(201).json({
         success: true,
         message: "User Successfuly Registerd ",
-        user: {
-          user_name: user.user_name,
-          email: user.email,
-        },
+        user,
       });
     }
   } catch (error: any) {

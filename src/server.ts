@@ -17,7 +17,7 @@ AppDataSource.initialize()
     console.log("Postgres is connected successfully");
     app.use("/api/v1/company", companyRoutes);
     app.use("/api/v1/product", productRoute);
-    app.use("/api/v1/uesr", userRoutes);
+    app.use("/api/v1/user", userRoutes);
   })
   .catch((e: any) => {
     console.log("error while connecting database" + e);

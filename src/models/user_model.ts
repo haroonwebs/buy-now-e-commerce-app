@@ -40,10 +40,12 @@ export class User {
   })
   user_role!: UserRole;
 
-  @Column()
-  otp!: number;
+  @Column({
+    nullable: true,
+  })
+  otp!: string;
 
-  @Column()
+  @Column({ nullable: true })
   otp_expiry!: Date;
 
   @Column({
