@@ -41,7 +41,7 @@ export const Register_User = async (
       specialChars: false,
     }) as any;
     // generating expiry for otp
-    const otp_expiry = new Date(Date.now() + 1 * 60 * 1000); // 1 minutes from now
+    const otp_expiry = new Date(Date.now() + 5 * 60 * 1000); // 1 minutes from now
 
     const user_Repo = AppDataSource.getRepository(User);
     const Existing_User = await user_Repo.findOne({ where: { email: email } });
