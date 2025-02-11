@@ -72,16 +72,8 @@ export const Register_User = async (
     // send email to verify the user using otp
     const sentMail = Send_Verify_Otp(user.email, user.otp);
 
-    // const token = jwt.sign({ userid: user.id }, config.jwt_secret as string);
-    // res.cookie("authToken", token, {
-    //   httpOnly: true,
-    //   sameSite: "none",
-    //   secure: false,
-    //   maxAge: config.jwt_expiry as any,
-    // });
     return res.status(201).json({
       success: true,
-      // message: "User Successfuly Registerd ",
     });
   } catch (error: any) {
     return res.status(500).json({
@@ -159,11 +151,12 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
       "updatedAt",
     ]);
     const token = jwt.sign({ user }, config.jwt_secret as string);
-    res.cookie("authToken", token, {
+    res.cookie("token", token, {
       httpOnly: true,
       sameSite: "lax",
       secure: false,
       maxAge: 360000,
+      path: "/",
     });
     if (!token) {
       return res.status(404).json({
@@ -175,6 +168,26 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
       success: true,
       message: "Login Successfuly",
       user,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: `Internal server error: ${error}`,
+    });
+  }
+};
+
+export const Logout = async (req: Request, res: Response): Promise<any> => {
+  try {
+    res.clearCookie("authToken", {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      path: "/",
+    });
+    res.status(200).json({
+      success: true,
+      message: "Logout Successfully !",
     });
   } catch (error: any) {
     return res.status(500).json({

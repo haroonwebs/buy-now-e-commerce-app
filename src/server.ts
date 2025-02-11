@@ -4,6 +4,7 @@ import companyRoutes from "./routes/companyRoutes/companyRoutes";
 import productRoute from "./routes/productRoutes/productRoute";
 import { config } from "./config/config";
 import userRoutes from "./routes/authRoutes/authRoutes";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
