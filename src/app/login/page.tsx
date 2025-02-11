@@ -6,6 +6,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CiLock } from "react-icons/ci";
 import { AiOutlineMail } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 // Define Zod schema for validation
 const loginSchema = z.object({
@@ -19,6 +21,7 @@ const loginSchema = z.object({
 type LoginFormType = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -27,7 +30,32 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormType) => {};
+  const onSubmit = async (data: LoginFormType) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/user/login", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (result.success === true) {
+        if (result.user.isVerified === true) {
+          toast.success(result.message);
+          router.push("/");
+          localStorage.setItem("user", JSON.stringify(result.user));
+        } else {
+          toast.warn(result.message);
+          router.push("/signup/verify_otp");
+        }
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="h-screen w-full bg-white flex items-center justify-center">
