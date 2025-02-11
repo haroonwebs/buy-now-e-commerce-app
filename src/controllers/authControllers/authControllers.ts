@@ -146,6 +146,9 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
         success: false,
         message:
           "User not verified,OTP sent to your email. Please first Verify your account using OTP !",
+        user: {
+          isVerified: Existing_User.isVerified,
+        },
       });
     }
     const user = _.omit(Existing_User, [
@@ -155,13 +158,12 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
       "createdAt",
       "updatedAt",
     ]);
-    console.log("response at login controller", user);
     const token = jwt.sign({ user }, config.jwt_secret as string);
     res.cookie("authToken", token, {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
       secure: false,
-      maxAge: config.jwt_expiry as unknown as number,
+      maxAge: 360000,
     });
     if (!token) {
       return res.status(404).json({
