@@ -1,5 +1,4 @@
 "use client";
-// import React, { useState } from "react";
 import { FaBagShopping } from "react-icons/fa6";
 
 import Link from "next/link";
@@ -12,25 +11,25 @@ const Navbar = () => {
           <FaBagShopping className="text-[30px]" />
         </div>
 
-        <ul className="md:flex hidden gap-6 font-[400px] text-[#7E8299] ">
+        <ul className="md:flex hidden gap-6 font-[400px]  ">
           <li className=" flex justify-center items-center hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8] px-2 rounded-md">
-            Dashboard
+            <Link href={"/dashboard"}>Dashboard</Link>
           </li>
 
           <li className=" flex justify-center items-center  hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8] px-2 rounded-md">
-            Users
+            <Link href={"/users"}>Users</Link>
           </li>
 
           <li className=" flex justify-center items-center  hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8] px-2 rounded-md">
-            Orders
+            <Link href={"/products"}>Products</Link>
           </li>
 
-          <li className="flex justify-center items-center hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8] px-2 rounded-md">
-            Buyers
+          <li className=" flex justify-center items-center  hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8] px-2 rounded-md">
+            <Link href={"/products/orders"}>Orders</Link>
           </li>
         </ul>
       </div>
-      <div className="text-[16px] font-semibold">
+      <div className=" flex justify-center items-center  text-[16px]  font-semibold px-2 rounded-md hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8]">
         <Link href="/login">Login</Link>
       </div>
     </nav>
