@@ -5,6 +5,7 @@ import {
   Signin,
 } from "../../controllers/authControllers/authControllers";
 import { OTP_VERIFY } from "../../controllers/authVerifyOTP";
+import { Get_All_Users } from "../../controllers/userControllers/userControllers";
 
 const userRoutes = express.Router();
 
@@ -12,5 +13,6 @@ userRoutes.post("/register", Register_User);
 userRoutes.post("/verify_otp", OTP_VERIFY);
 userRoutes.post("/login", Signin);
 userRoutes.post("/logout", Logout);
+userRoutes.get("/allusers", Get_All_Users);
 
 export default userRoutes;
