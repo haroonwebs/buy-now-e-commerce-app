@@ -1,7 +1,6 @@
 import React from "react";
 import UserCard from "@/components/UserCard";
 import usefetchUsers from "@/hooks/useFetchUsers";
-import { userTypes } from "@/types/userTypes";
 
 const Users = async () => {
   const { users, error } = await usefetchUsers(

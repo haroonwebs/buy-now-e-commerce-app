@@ -5,7 +5,6 @@ const usefetchUsers = async (url: string) => {
     if (!data) {
       throw new Error("error while fetching orders");
     }
-    console.log("data", data);
 
     const response: any = await data.json();
     const users: userTypes[] = response.users;
