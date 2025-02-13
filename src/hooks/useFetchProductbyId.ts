@@ -8,7 +8,7 @@ const usefetchProductbyId = async (url: string) => {
     }
 
     const response: any = await data.json();
-    const product: ProdcutType[] = response.product;
+    const product: ProdcutType = response.product;
     return { product, error: null };
   } catch (error: any) {
     return { product: null, error: error.message };

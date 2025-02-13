@@ -7,7 +7,7 @@ const products = async () => {
     "http://localhost:5000/api/v1/product/getall"
   );
   return (
-    <div className="grid grid-cols-4 w-full h-auto">
+    <div className="grid justify-center sm:grid-cols-2 md:col-span-3 lg:grid-cols-3 xl:grid-cols-4  w-full h-auto">
       {products && products.length > 0 ? (
         products.map((product) => (
           <ProductCard key={product.id} product={product} />
