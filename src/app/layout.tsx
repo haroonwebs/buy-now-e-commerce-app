@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "@/app/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserContextProvider from "@/contexts/userContext/userContextProvider";
 
 export const metadata = {
   title: "Buy-Now",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
-        <ToastContainer position="top-right" autoClose={5000} />
+        <UserContextProvider>
+          <Navbar />
+          {children}
+          <ToastContainer position="top-right" autoClose={5000} />
+        </UserContextProvider>
       </body>
     </html>
   );

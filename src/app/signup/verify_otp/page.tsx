@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import useUserContext from "@/contexts/userContext/userContext";
 // Define Zod schema for validation
 const otpSchema = z.object({
   otp: z.string().length(6, { message: "OTP must be exactly 6 digits" }),
@@ -15,6 +16,7 @@ type otpFormType = z.infer<typeof otpSchema>;
 
 const Login = () => {
   const router = useRouter();
+  const { setUserAuthContext } = useContext(useUserContext);
   const {
     register,
     handleSubmit,
@@ -37,12 +39,11 @@ const Login = () => {
       const result = await response.json();
       if (result.success) {
         toast.success(result.message);
+        setUserAuthContext(result.user);
         router.push("/");
       } else {
         toast.error(result.message);
       }
-
-      console.log("result after verification", result);
     } catch (error: any) {
       toast.error(error.message);
     }

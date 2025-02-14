@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,8 +8,8 @@ import { CiLock } from "react-icons/ci";
 import { AiOutlineMail } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import useUserContext from "@/contexts/userContext/userContext";
 
-// Define Zod schema for validation
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z
@@ -22,6 +22,7 @@ type LoginFormType = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const router = useRouter();
+  const { setUserAuthContext } = useContext(useUserContext);
   const {
     register,
     handleSubmit,
@@ -44,7 +45,8 @@ const Login = () => {
         if (result.user.isVerified === true) {
           toast.success(result.message);
           router.push("/");
-          localStorage.setItem("user", JSON.stringify(result.user));
+          setUserAuthContext(result.user);
+          // localStorage.setItem("user", JSON.stringify(result.user));
         } else {
           toast.warn(result.message);
           router.push("/signup/verify_otp");

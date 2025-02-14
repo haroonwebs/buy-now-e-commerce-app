@@ -29,8 +29,13 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className=" flex justify-center items-center  text-[16px]  font-semibold px-2 rounded-md hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8]">
-        <Link href="/login">Login</Link>
+      <div className=" flex justify-center items-center gap-3 text-[16px]  font-semibold ">
+        <span className="px-2 rounded-md hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8]">
+          <Link href="/login">Login</Link>
+        </span>
+        <span className="px-2 rounded-md hover:text-[#4FC9F3] hover:font-[500px] hover:bg-[#f5f6f8]">
+          <Link href="/login">Logout</Link>
+        </span>
       </div>
     </nav>
   );
