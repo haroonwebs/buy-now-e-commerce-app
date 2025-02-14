@@ -46,7 +46,6 @@ const Login = () => {
           toast.success(result.message);
           router.push("/");
           setUserAuthContext(result.user);
-          // localStorage.setItem("user", JSON.stringify(result.user));
         } else {
           toast.warn(result.message);
           router.push("/signup/verify_otp");

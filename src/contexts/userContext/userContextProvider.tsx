@@ -1,5 +1,5 @@
 "use client";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from "react";
 import useUserContext from "./userContext";
 import { userTypes } from "@/types/userTypes";
 
@@ -8,9 +8,18 @@ type Props = {
 };
 
 const UserContextProvider = ({ children }: Props) => {
-  const [userAuthContext, setUserAuthContext] = useState<userTypes | null>(
-    null
-  );
+  const [userAuthContext, setUserAuthContext] = useState<userTypes>(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(localStorage.getItem("user") || "null");
+    }
+    return null;
+  });
+
+  useEffect(() => {
+    if (userAuthContext) {
+      localStorage.setItem("user", JSON.stringify(userAuthContext));
+    }
+  }, [userAuthContext]);
 
   return (
     <useUserContext.Provider value={{ userAuthContext, setUserAuthContext }}>
