@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Joi from "joi";
+import Joi, { boolean } from "joi";
 import { User, UserRole } from "../../models/user_model";
 import { authTypes } from "./authTypes";
 import otpgenerator from "otp-generator";
@@ -179,12 +179,18 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
 
 export const Logout = async (req: Request, res: Response): Promise<any> => {
   try {
-    res.clearCookie("authToken", {
+    const clearCookie = res.clearCookie("token", {
       httpOnly: true,
       sameSite: "lax",
       secure: false,
       path: "/",
     });
+    if (!clearCookie) {
+      return res.status(409).json({
+        success: false,
+        message: "something error while clearCookies in logout",
+      });
+    }
     res.status(200).json({
       success: true,
       message: "Logout Successfully !",
