@@ -10,7 +10,7 @@ type Props = {
 const UserContextProvider = ({ children }: Props) => {
   const [userAuthContext, setUserAuthContext] = useState<userTypes>(() => {
     if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("user") || "null");
+      return JSON?.parse(localStorage.getItem("user") || "null");
     }
     return null;
   });

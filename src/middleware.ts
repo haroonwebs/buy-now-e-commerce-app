@@ -13,5 +13,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/products/:path", "/users", "/signup/verify_otp"],
+  matcher: ["/dashboard", "/products/:path", "/users"],
 };

@@ -6,6 +6,8 @@ const products = async () => {
   const { products, error } = await usefetchProducts(
     "http://localhost:5000/api/v1/product/getall"
   );
+  console.log("products", products);
+  console.log("error", error);
   return (
     <div className="grid justify-center sm:grid-cols-2 md:col-span-3 lg:grid-cols-3 xl:grid-cols-4  w-full h-auto">
       {products && products.length > 0 ? (
