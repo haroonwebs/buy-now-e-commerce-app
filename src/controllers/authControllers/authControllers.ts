@@ -155,7 +155,7 @@ export const Signin = async (req: Request, res: Response): Promise<any> => {
       httpOnly: true,
       sameSite: "lax",
       secure: false,
-      maxAge: 360000,
+      maxAge: 3600000,
       path: "/",
     });
     if (!token) {

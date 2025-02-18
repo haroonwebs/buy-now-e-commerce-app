@@ -7,10 +7,16 @@ import {
   Update_Product,
 } from "../../controllers/productControllers/productControllers";
 import { upload } from "../../middlewares/multer_middleware";
+import { Admin_Token } from "../../middlewares/auth_middleware";
 
 const productRoute = express.Router();
-productRoute.post("/create", upload.single("Photo_file"), Create_Product);
-productRoute.get("/getall", All_Products);
+productRoute.post(
+  "/create",
+  upload.single("Photo_file"),
+  Admin_Token,
+  Create_Product
+);
+productRoute.get("/getall", Admin_Token, All_Products);
 productRoute.get("/:productId", Product_By_Id);
 productRoute.delete("/delete/:productId", Delete_Product);
 productRoute.patch("/update/:productId", Update_Product);

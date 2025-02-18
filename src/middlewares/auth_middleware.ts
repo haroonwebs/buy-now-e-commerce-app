@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Jwt, { JwtPayload } from "jsonwebtoken";
 import { config } from "../config/config";
-import { access } from "fs";
 
 // middleware for admin access
 const Admin_Token = async (
