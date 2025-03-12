@@ -183,6 +183,7 @@ export const Product_By_Id = async (
       },
       relations: {
         company: true,
+        photo:true
       },
     });
     if (!product) {

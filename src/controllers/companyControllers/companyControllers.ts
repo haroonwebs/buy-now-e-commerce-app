@@ -23,7 +23,7 @@ export const Create_Company = async (
       message: error.details.map((details) => details.message),
     });
   }
-
+ 
   const { name, description }: companyTypes = value;
 
   let New_Company;
@@ -33,6 +33,8 @@ export const Create_Company = async (
     const Existing_Company = await CompanyRepositery.findOne({
       where: { name: name },
     });
+
+    console.log("====>Existing_Company", Existing_Company)
 
     if (Existing_Company) {
       return res.status(409).json({
@@ -55,7 +57,7 @@ export const Create_Company = async (
 
     New_Company = await CompanyRepositery.save(New_Company);
     return res.status(201).json({
-      success: false,
+      success: true,
       message: " Your company is Registered now Successfuly ",
       New_Company,
     });

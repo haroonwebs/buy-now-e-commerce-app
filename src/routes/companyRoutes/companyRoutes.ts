@@ -10,7 +10,7 @@ import { Admin_Token, User_Token } from "../../middlewares/auth_middleware";
 
 const companyRoutes = express.Router();
 
-companyRoutes.post("/create", User_Token, Create_Company);
+companyRoutes.post("/create", Create_Company);
 companyRoutes.get("/getall", Get_Companes);
 companyRoutes.get("/:companyId", Get_Single_Company);
 companyRoutes.patch("/update/:companyId", Update_Company);
